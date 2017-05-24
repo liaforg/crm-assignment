@@ -19,10 +19,9 @@
     @@contacts
   end
 
-  def self.create(first_name, last_name, email)
-    new_contact = Contact.new(first_name, last_name, email)
+  def self.create(first_name, last_name, email, note)
+    new_contact = Contact.new(first_name, last_name, email, note)
     @@contacts << new_contact
-    new_contact
   end
 
   def update(attribute, value)
@@ -32,11 +31,11 @@
         self.last_name = value
       elsif attribute == "email"
         self.email = value
-      elsif attribute = "note"
+      elsif attribute == "note"
         self.note = value
       end
-    end
   end
+
 
   def self.find(id)
     unique = nil
@@ -55,6 +54,7 @@
           return contact
         end
       end
+      nil
     end
     if attribute == "last_name"
       @@contact.each do |contact|
@@ -62,28 +62,25 @@
           return contact
         end
       end
+      nil
     end
-    nil
     if attribute == "email"
       @@contact.each do |contact|
         if value == contact.email
           return contact
         end
       end
+      nil
     end
-     nil
      if attribute == "id"
        @@contact.each do |contact|
          if value == contact.id
            return contact
          end
        end
+       nil
      end
-    nil
   end
-
-  end
-
 
   def full_name
     "#{first_name} #{last_name}"
@@ -95,7 +92,7 @@
 
 
   def delete
-    @@contacts.delete_at(self)
+    @@contacts.delete(self)
   end
 
 
